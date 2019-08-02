@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 services:
   spark-master:
     image: spydernaz/spark-master:latest
@@ -16,10 +16,14 @@ services:
       - spark-master
     environment:
       - SPARK_MASTER=spark://spark-master:7077
-      - SPARK_WORKER_CORES=1
-      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=4
+      - SPARK_WORKER_MEMORY=8G
       - SPARK_DRIVER_MEMORY=128m
-      - SPARK_EXECUTOR_MEMORY=256m
+      - SPARK_EXECUTOR_MEMORY=1G
     volumes:
        - ./apps:/opt/spark-apps
        - ./data:/opt/spark-data
+networks:
+  default:
+    external:
+      name: RG_SwarmNet
